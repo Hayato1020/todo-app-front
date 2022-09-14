@@ -9,3 +9,4 @@ RUN npm install -g npm @vue/cli
 
 RUN npm run build
 
+CMD [ "http-server", "dist" ]
