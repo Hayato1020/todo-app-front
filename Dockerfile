@@ -9,4 +9,12 @@ RUN npm install -g npm @vue/cli
 
 RUN npm run build
 
-CMD [ "http-server", "dist" ]
+#本番環境
+FROM nginx:stable-alpine as production-stage
+COPY --from=build-stage /app/dist /usr/share/nginx/html
+
+COPY nginx_config/nginx.conf /etc/nginx/nginx.conf
+COPY nginx_config/default.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
