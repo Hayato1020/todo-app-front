@@ -12,7 +12,7 @@ RUN npm run build
 #本番環境
 FROM nginx:stable-alpine as production-stage
 # 出力フォルダを表示させる
-COPY --form=build-stage ./app/dist/ /usr/share/nginx/html/
+COPY --from=build-stage ./app/dist/ /usr/share/nginx/html/
 COPY ./nginx/ /etc/nginx/conf.d/
 
 EXPOSE 8080
