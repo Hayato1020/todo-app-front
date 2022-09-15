@@ -12,8 +12,8 @@ RUN npm run build
 #本番環境
 FROM nginx:stable-alpine as production-stage
 # 出力フォルダを表示させる
-ADD ./app/dist/ /usr/share/nginx/html/
-ADD ./nginx/ /etc/nginx/conf.d/
+COPY --form=build-stage ./app/dist/ /usr/share/nginx/html/
+COPY ./nginx/ /etc/nginx/conf.d/
 
 EXPOSE 8080
 CMD ["nginx", "-g", "daemon off;"]
